@@ -34,14 +34,6 @@ extension Node: CustomStringConvertible {
     }
 }
 
-let node1 = Node(value: 1)
-let node2 = Node(value: 2)
-let node3 = Node(value: 3)
-//node1.next = node2
-//node2.next = node3
-
-
-
 /// - TAG:  Linked List implementation
 /*
  A linked list is a linear data structure which holds a series of nodes
@@ -176,13 +168,98 @@ extension LinkedList: CustomStringConvertible {
     }
 }
 
-var list = LinkedList<Int>()
-list.append(newValue: 2)
-list.append(newValue: 3)
-list.append(newValue: 22)
-list.append(newValue: 55)
-list.append(newValue: 64)
-list.insertAfter(index: 2, newValue: 80)
-print("Before removing: ", list)
-print("Removed after index 3", list.removeAfter(index: 3) ?? "No value after index 3")
-print("After removing: ", list)
+/// - TAG: Stacks Implementation
+/*
+ Stacks are a Last In First Out data structure where the last item to go in is the first element to go out
+ 
+ Properties of a stack are;
+ - storage which is an array to store and manage the data
+ */
+
+
+struct Stack<Element> {
+    private var storage = [Element]()
+    init() {}
+}
+
+/*
+ Operations on a stack
+ - Push operation: Appends a new item into the stack
+ - Pop operation: Removes the element at the top of the stack (last element to go into the stack)
+ */
+
+extension Stack: CustomStringConvertible {
+    // Printing out a stack
+    var description: String {
+        let topDivider = "------top------\n"
+        let bottomDivider = "\n---------------"
+        let stackElements = storage.map{"\($0)"}.reversed().joined(separator: "\n")
+        return topDivider + stackElements + bottomDivider
+    }
+    
+    // Adds a new element into the top of the stack
+    mutating func push(newElement: Element) {
+        storage.append(newElement)
+    }
+    // removes and returns the last element that was added to the stack
+    mutating func pop() -> Element? {
+        return storage.popLast()
+    }
+}
+
+/// - TAG: Queue Implementation
+/*
+ The first element to enter the queue is the first element to go out of the Queue (FIFO)
+ Properties of a Queue
+ - A storage array to hold and manage data
+ - isEmpty is a checker to see if the queue is empty or not
+ - Peek is the first element on the stack
+ -
+ */
+
+struct Queue<Element> {
+    private var storage = [Element]()
+    var isEmpty: Bool {
+        return storage.isEmpty
+    }
+    init() {}
+    
+    var peek: Element? {
+        return storage.first
+    }
+    
+    mutating func enqueue(_ element: Element) -> Bool {
+        storage.append(element)
+        return true
+    }
+    
+    mutating func dequeue() -> Element? {
+        if isEmpty {
+            return nil
+        } else {
+            return storage.removeFirst()
+        }
+    }
+}
+
+extension Queue: CustomStringConvertible {
+    var description: String {
+        return String(describing: storage)
+    }
+}
+
+
+var queue = Queue<Int>()
+queue.enqueue(10)
+queue.enqueue(2)
+queue.enqueue(34)
+queue.enqueue(55)
+print(queue)
+
+print("Before dequeue() ")
+
+queue.dequeue()
+
+print(queue)
+
+print("After dequeue() ")
