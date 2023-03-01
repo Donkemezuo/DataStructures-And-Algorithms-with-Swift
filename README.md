@@ -18,6 +18,7 @@
     - The head node have not parent node
     - The last node in a linked list is called the tail 
     - The tail node have not child node 
+    - This is a test
 
 # Stacks 
 - Stacks are a first in last out data structure where the first element to enter the stack is the last element to go out of the stack. 
